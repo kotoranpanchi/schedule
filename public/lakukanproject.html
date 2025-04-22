@@ -1,0 +1,126 @@
+<script src="script.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-500">
+    <div  class="w-full max-w-xs p-4 bg-white rounded-lg shadow-md page">
+        <div class="space-y-4">
+    <h2 class="mb-4 text-2xl font-bold">Checklist Proyek</h2>
+    <h3 class="mb-2 text-xl font-semibold">Progres Keseluruhan: <span id="overall-progress">0%</span></h3>
+    
+    <div id="sections-container">
+        
+        <details>
+        <summary class="text-lg font-semibold">MANUFAKTUR (<span id="manufaktur-progress">0%</span>)</summary>
+        <div class="progress-section manufaktur">
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Laser</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Deburing</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Review – cek</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Roll</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Setting</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Cone</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Pon</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Las</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Pasang track</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Las pul 1</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Pasang cone</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Ring plate</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Las full</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Finishing amplas 100</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Finishing amplas 600</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Spotbread/buffing & trial</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Eliminasi 1</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Eliminasi 2</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Eliminasi 3</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Eliminasi 4</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Trial keseluruhan</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Menghapus sisa welding menggunakan bahan kimia</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Amplas</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Perbaikan</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Finishing</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Cleaning</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Epoksi dasar – pasang karpet</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Coating 1</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Coating 2</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Coating 3</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Coating 4</li>
+        <li><input type="checkbox" onclick="updateProgress('manufaktur')"> Trial setelah coating</li>
+            </ul>
+        </div>
+    </details>
+    <details>
+        <summary class="text-lg font-semibold">PPIC (<span id="ppic-progress">0%</span>)</summary>
+        <div class="progress-section ppic">
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Dwg tahap 1</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Periksa BOM atau list</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi order mtc</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Periksa BOM atau list</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsul order std oleh design</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Order dengan purchasing</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi jadwal</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi harga/Q</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Cek barang x P.O</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Cek barang x Dwg</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Simpan penempatan barang</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Serah terima ke assy man</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Update jadwal ke customer</li>
+        <li><input type="checkbox" onclick="updateProgress('ppic')"> Ke tim</li>
+            </ul>
+        </div>
+    </details>
+    <details>
+        <summary class="text-lg font-semibold">ASSY (<span id="assy-progress">0%</span>)</summary>
+        <div class="progress-section assy">
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Kelengkapan Dwg Assy</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Frame</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Main Base</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Jig</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Cek gerakan stroke</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Aligment</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> PWR Wiring</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Internal Wiring</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Cek ijo</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Program manual</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Cek fungsi</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Drawing</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Electric</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Mecanic</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi customer</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> List setup tahap 1</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Jadwal implementasi</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Program Auto</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi cycle time</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi quality</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi safety</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> FAT</li>
+        <li><input type="checkbox" onclick="updateProgress('assy')"> Planing Delivery</li>
+            </ul>
+        </div>
+    
+    </details>
+    <details>
+        <summary class="text-lg font-semibold">INSTALL (<span id="install-progress">0%</span>)</summary>
+        <div class="progress-section install">
+        <li><input type="checkbox" onclick="updateProgress('install')"> Unloading dari truck ke lantai</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Posisi layout mesin</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Persiapan ture fork lif</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Persiapan Hand Lifter</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Leveling</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Assembly Ulang</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Wiring Ulang</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Power on</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Cek Fungsi Manual</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Cek 1/0</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Cek fungsi auto</li>
+        <li><input type="checkbox" onclick="updateProgress('install')"> Cek Quality</li>           
+            </ul>
+        </div>
+    </details>
+    </div>
+    <div class="space-y-4">
+    <h3 class="text-lg font-semibold">Tambah Bagian Baru</h3>
+    <input   class="border border-gray-700" type="text" id="new-section-name" placeholder="Nama bagian baru" /><button class="border border-gray-700 rounded" onclick="addSection()">Tambah Bagian</button>
+    </div>
+    <button type="button" class="px-4 py-2 text-white bg-gray-500 rounded" onclick="window.location.href = 'HomePage.html'">Back</button>
+    </div>
+    </div>
+</body>

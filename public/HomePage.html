@@ -1,0 +1,18 @@
+<script src="script.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-500">
+<div class="page w-full max-w-xs p-4 bg-white shadow-md rounded-lg mb-8">
+    <h2 class="mb-4 text-2xl font-bold text-center">-> Home <-</h2>
+    <p id="userGreeting" class="mb-6 text-lg text-center"></p>
+    <div class="flex flex-col items-center space-y-4">
+        <button type="button" class="px-12 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="window.location.href = 'forms1.html'">Buat Project</button>
+        <button type="button" class="px-11 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="window.location.href = 'checkproject.html'">Check Project</button>
+        <button type="button" class="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition" onclick="window.location.href = 'allproject.html'">Lihat Semua project</button>           
+        <button type="button" class="px-10 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition" onclick="window.location.href = 'lakukanproject.html'">Lakukan Project</button>
+    </div>
+    <div class="mt-4 text-center">
+        <button class="text-gray-500" onclick="logout()">Logout</button>
+    </div>
+</div>
+</body>
