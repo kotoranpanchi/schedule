@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 5050;
 
 // Melayani file statis dari folder "public"
 app.use(express.static('public'));
@@ -15,6 +15,6 @@ app.get('/HomePage', (req, res) => {
 });
 
 
-app.listen(3000, '192.168.50.185', () => {
-  console.log("Server jalan di http://192.168.50.185:3000");
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
