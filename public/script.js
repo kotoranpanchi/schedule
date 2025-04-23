@@ -124,62 +124,6 @@
         taskInput.value = "";
     }
 
-        function login() {
-            const users = [
-            { username: "Abdul", password: "wkwkwk", role: "Admin", level: 1 },
-            { username: "Admin", password: "wkwkwk", role: "Admin", level: 1 },
-            { username: "Manajer", password: "qwerty", role: "Manajer", level: 1 },
-            { username: "President", password: "11223344", role: "President", level: 1 },
-            { username: "Staff", password: "engineering", role: "Staff", level: 2 }
-            ];
-            const inputUsername = document.getElementById("username").value.trim();
-            const inputPassword = document.getElementById("password").value.trim();
-            
-            const user = users.find(u => u.username === inputUsername && u.password === inputPassword);
-            
-            if (user) {
-                  // Ganti halaman setelah login berhasil
-                  window.location.href = "HomePage.html";
-                } else {
-                  alert("Username atau password salah!");
-            }
-            }
-            
-            function setUserRole(role, level) {
-            document.getElementById('userGreeting').textContent = `Hi ${role}`;
-            
-            // Tampilkan tombol sesuai level
-            if (level === 1) {
-            // Semua tombol ditampilkan (default tidak perlu diubah)
-            } else if (level === 2) {
-            // Sembunyikan tombol tertentu
-            const hideForLevel2 = [
-            "page1",        // Buat Project
-            "pageCP1",      // Check Project
-            ];
-            
-            hideForLevel2.forEach(pageId => {
-            const buttons = document.querySelectorAll(`button[onclick*="${pageId}"]`);
-            buttons.forEach(btn => btn.style.display = 'none');
-            });
-            }
-            }
-            
-            function togglePassword() {
-            const passwordInput = document.getElementById("password");
-            const currentType = passwordInput.getAttribute("type");
-            
-            passwordInput.setAttribute("type", currentType === "password" ? "text" : "password");
-            }
-            
-
-        function logout() {
-            window.location.href = "index.html";
-            document.querySelectorAll('input').forEach(input => input.value = '');
-            document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
-            document.getElementById('previewTableBody').innerHTML = '';
-            
-        }
 
         function savePage1() {
             const projectName = document.getElementById('projectName').value;

@@ -1,5 +1,14 @@
 <script src="script.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+    function logout() {
+  window.location.href = "index.html";
+  document.querySelectorAll('input').forEach(input => input.value = '');
+  document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+  document.getElementById('previewTableBody').innerHTML = '';
+  
+}
+</script>
 
 <body class="flex flex-col items-center justify-center min-h-screen bg-gray-500">
 <div class="page w-full max-w-xs p-4 bg-white shadow-md rounded-lg mb-8">
@@ -12,7 +21,7 @@
         <button type="button" class="px-10 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition" onclick="window.location.href = 'lakukanproject.html'">Lakukan Project</button>
     </div>
     <div class="mt-4 text-center">
-        <button type="button" class="text-gray-500" onclick="logout()">Logout</button>
+        <button type="submit" class=" text-blue " onclick="logout()">Logout</button>
     </div>
 </div>
 </body>
