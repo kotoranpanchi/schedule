@@ -174,10 +174,11 @@
             
 
         function logout() {
+            window.location.href = "index.html";
             document.querySelectorAll('input').forEach(input => input.value = '');
             document.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
             document.getElementById('previewTableBody').innerHTML = '';
-            window.location.href = "index.html";
+            
         }
 
         function savePage1() {
