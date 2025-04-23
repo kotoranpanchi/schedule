@@ -1,4 +1,6 @@
-                function drawChart() {
+google.charts.load("current", { packages: ["gantt"] });
+        
+        function drawChart() {
             var data = new google.visualization.DataTable();
             data.addColumn("string", "Task ID");
             data.addColumn("string", "Task Name");
@@ -28,6 +30,7 @@
                 
                 chartData.push([taskId, taskName, subDescription, startDate, endDate, duration, percentComplete, dependencies]);
             }
+
             data.addRows(chartData);
 
             var options = {
