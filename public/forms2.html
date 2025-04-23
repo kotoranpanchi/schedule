@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="script.js"></script>
     <script>    
+    google.charts.load("current", { packages: ["gantt"] });
         function updateProgressTable() {
         const tableBody = document.getElementById('progressTableBody');
         tableBody.innerHTML = '';
