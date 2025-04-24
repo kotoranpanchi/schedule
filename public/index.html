@@ -10,8 +10,8 @@
 
   function login() {
   const users = [
-    { username: "Admin", password: "wkwkwk", role: "Admin", level: 1 },
-    { username: "Staff", password: "engineering", role: "Staff", level: 2 }
+    { username: "Abd", password: "wkwkwk", role: "Admin", level: 1, name: "Abd" },
+    { username: "Staff", password: "engineering", role: "Staff", level: 2, name: "DSGS" }
   ];
 
   const inputUsername = document.getElementById("username").value.trim();
@@ -21,6 +21,7 @@
 
   if (user) {
     // Simpan role & level ke localStorage
+    localStorage.setItem("Name", user.name);
     localStorage.setItem("userRole", user.role);
     localStorage.setItem("userLevel", user.level);
 
@@ -32,17 +33,18 @@
 }
 
   
-function setUserRole(role, level) {
-  const greeting = document.getElementById('userGreeting');
-  if (greeting) greeting.textContent = `Hi ${role}`;
+function setUserRole(role, level, name) {
+const greeting = document.getElementById('userGreeting');
+  if (greeting) {
+    greeting.textContent = `Hi ${name}, ${role}`;
+  }
 
   if (level === 1) {
-    // Semua tombol ditampilkan (tidak ada yang disembunyikan)
+    // Semua tombol ditampilkan
     return;
   } else if (level === 2) {
     // Sembunyikan tombol tertentu
     const idsToHide = ["forms1.html", "allproject.html"];
-
     idsToHide.forEach(id => {
       const btn = document.getElementById(id);
       if (btn) btn.style.display = "none";
