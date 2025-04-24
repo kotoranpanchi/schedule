@@ -8,46 +8,47 @@
 <script>
   // Load the Google Charts library
 
-function login() {
+  function login() {
   const users = [
-  { username: "Abdul", password: "wkwkwk", role: "Admin", level: 1 },
-  { username: "Admin", password: "wkwkwk", role: "Admin", level: 1 },
-  { username: "Manajer", password: "qwerty", role: "Manajer", level: 1 },
-  { username: "President", password: "11223344", role: "President", level: 1 },
-  { username: "Staff", password: "engineering", role: "Staff", level: 2 }
+    { username: "Admin", password: "wkwkwk", role: "Admin", level: 1 },
+    { username: "Staff", password: "engineering", role: "Staff", level: 2 }
   ];
+
   const inputUsername = document.getElementById("username").value.trim();
   const inputPassword = document.getElementById("password").value.trim();
-  
+
   const user = users.find(u => u.username === inputUsername && u.password === inputPassword);
-  
+
   if (user) {
-        // Ganti halaman setelah login berhasil
-        window.location.href = "HomePage.html";
-      } else {
-        alert("Username atau password salah!");
+    // Simpan role & level ke localStorage
+    localStorage.setItem("userRole", user.role);
+    localStorage.setItem("userLevel", user.level);
+
+    // Arahkan ke halaman utama
+    window.location.href = "HomePage.html";
+  } else {
+    alert("Username atau password salah!");
   }
-  }
+}
+
   
-  function setUserRole(role, level) {
-  document.getElementById('userGreeting').textContent = `Hi ${role}`;
-  
-  // Tampilkan tombol sesuai level
+function setUserRole(role, level) {
+  const greeting = document.getElementById('userGreeting');
+  if (greeting) greeting.textContent = `Hi ${role}`;
+
   if (level === 1) {
-  // Semua tombol ditampilkan (default tidak perlu diubah)
+    // Semua tombol ditampilkan (tidak ada yang disembunyikan)
+    return;
   } else if (level === 2) {
-  // Sembunyikan tombol tertentu
-  const hideForLevel2 = [
-  "forms1.html",        // Buat Project
-  "allproject.html",      // Check Project
-  ];
-  
-  hideForLevel2.forEach(pageId => {
-  const buttons = document.querySelectorAll(`button[onclick*="${pageId}"]`);
-  buttons.forEach(btn => btn.style.display = 'none');
-  });
+    // Sembunyikan tombol tertentu
+    const idsToHide = ["forms1.html", "allproject.html"];
+
+    idsToHide.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.style.display = "none";
+    });
   }
-  }
+}
   
   function togglePassword() {
   const passwordInput = document.getElementById("password");

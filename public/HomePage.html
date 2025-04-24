@@ -10,6 +10,59 @@
   document.getElementById('previewTableBody').innerHTML = '';
   
 }
+function login() {
+  const users = [
+  { username: "Abdul", password: "wkwkwk", role: "Admin", level: 1 },
+  { username: "Admin", password: "wkwkwk", role: "Admin", level: 1 },
+  { username: "Manajer", password: "qwerty", role: "Manajer", level: 1 },
+  { username: "President", password: "11223344", role: "President", level: 1 },
+  { username: "Staff", password: "engineering", role: "Staff", level: 2 }
+  ];
+  const inputUsername = document.getElementById("username").value.trim();
+  const inputPassword = document.getElementById("password").value.trim();
+  
+  const user = users.find(u => u.username === inputUsername && u.password === inputPassword);
+  
+  if (user) {
+        // Ganti halaman setelah login berhasil
+        window.location.href = "HomePage.html";
+      } else {
+        alert("Username atau password salah!");
+  }
+  }
+
+  function setUserRole(role, level) {
+  const greeting = document.getElementById('userGreeting');
+  if (greeting) greeting.textContent = `Hi ${role}`;
+
+  if (level === 1) {
+    // Semua tombol ditampilkan (tidak ada yang disembunyikan)
+    return;
+  } else if (level === 2) {
+    // Sembunyikan tombol tertentu
+    const idsToHide = ["forms1.html", "allproject.html"];
+
+    idsToHide.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) btn.style.display = "none";
+    });
+  }
+}
+
+window.onload = function () {
+  const role = localStorage.getItem("userRole");
+  const level = parseInt(localStorage.getItem("userLevel"));
+
+  if (!role || !level) {
+    // Kalau belum login, kembali ke login page
+    window.location.href = "index.html";
+    return;
+  }
+
+  setUserRole(role, level);
+};
+
+  
 </script>
 
 <body class="flex flex-col items-center justify-center min-h-screen bg-gray-500">
@@ -17,8 +70,8 @@
     <h2 class="mb-4 text-2xl font-bold text-center">-> Home <-</h2>
     <p id="userGreeting" class="mb-6 text-lg text-center"></p>
     <div class="flex flex-col items-center space-y-4">
-        <button type="button" class="px-12 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="window.location.href = 'forms1.html'">Buat Project</button>
-        <button type="button" class="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition" onclick="window.location.href = 'allproject.html'">Lihat Semua project</button> 
+        <button type="button" id="forms1.html" class="px-12 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="window.location.href = 'forms1.html'">Buat Project</button>
+        <button type="button" id="allproject.html" class="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition" onclick="window.location.href = 'allproject.html'">Lihat Semua project</button> 
         <button type="button" class="px-11 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition" onclick="window.location.href = 'checkproject.html'">Check Project</button>          
         <button type="button" class="px-10 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition" onclick="window.location.href = 'lakukanproject.html'">Lakukan Project</button>
     </div>
