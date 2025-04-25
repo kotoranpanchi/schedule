@@ -13,7 +13,7 @@
         tableBody.innerHTML = '';
     
         const tasks = [
-            { description: 'After PO', subDescriptions: ['Schedule planning design', '3D design actual', 'Cek standar part', 'Cek schedule delivery', '2D drawing detail', 'Cek geometri dan toleransi', 'BOM drawing', 'Part list standart part', 'Part list raw material', 'Order to purchasing', 'Control subkon/inhouse', 'Fu std part order'] },
+            { description: 'Design', subDescriptions: ['Schedule planning design', '3D design actual', 'Cek standar part', 'Cek schedule delivery', '2D drawing detail', 'Cek geometri dan toleransi', 'BOM drawing', 'Part list standart part', 'Part list raw material', 'Order to purchasing', 'Control subkon/inhouse', 'Fu std part order'] },
             { description: 'PPIC', subDescriptions: ['Dwg tahap 1', 'Periksa BOM atau list', 'Konsolidasi order mtc', 'Konsul order std oleh design', 'Order dengan purchasing', 'Konsolidasi jadwal', 'Konsolidasi harga/Q', 'Cek barang x P.O', 'Cek barang x DWG', 'Simpang penempatan barang', 'Serah terima ke assy man', 'Update jadwal ke costumer', 'Ke tim'] },
             { description: 'ASSY', subDescriptions: ['Kelengkapan Dwg Assy', 'Frame', 'Main Base', 'Jig', 'Cek gerakan stroke', 'Aligment', 'PWR Wiring', 'Internal Wiring', 'Cek ijo', 'Program manual', 'Cek fungsi', 'Evaluasi Drawing', 'Evaluasi Electric'] },
             { description: 'Install', subDescriptions: ['Unloading dari truck ke lantai', 'posisi layout mesin', 'Persiapan ture fork lift', 'Persiapan Hand Lifter', 'Leveling', 'Assembly Ulang', 'Wiring Ulang', 'Power on', 'Cek Fungsi Manual', 'Cek 1/0', 'Cek fungsi auto', 'Cek Quality', 'Cek cycle Time', 'cek safety', 'Approval customer', 'training', 'bast', 'penagihan'] }
@@ -30,6 +30,8 @@
                     </select>
                 </td>
                 <td class="border px-4 py-2 border-gray-700">
+                    <input type="text" class="w-full px-3 py-2 border rounded" id="ppc${index + 1}"></td>
+                <td class="border px-4 py-2 border-gray-700">
                     <input type="date" class="w-full px-3 py-2 border rounded" id="start${index + 1}">
                 </td>
                 <td class="border px-4 py-2 border-gray-700">
@@ -44,7 +46,6 @@
     }
     </script>
 </head>
-
 <div class="page w-full max-w-full p-4 bg-white shadow-md rounded-lg">
     <h2 class="text-xl font-bold mb-4">Formulir Pembuatan Proyek</h2>
     <table class="w-full table-auto border-collapse border-gray-700" id="gant">
@@ -53,6 +54,7 @@
                 <th class="border px-4 py-2 border-gray-700">No.</th>
                 <th class="border px-4 py-2 border-gray-700">Description</th>
                 <th class="border px-4 py-2 border-gray-700">Sub Description</th>
+                <th class="border px-4 py-2 border-gray-700">PPC</th>
                 <th class="border px-4 py-2 border-gray-700">Start</th>
                 <th class="border px-4 py-2 border-gray-700">Finish</th>
                 <th class="border px-4 py-2 border-gray-700">Action</th>
@@ -73,6 +75,7 @@
                 <th class="border px-4 py-2 border-gray-700">No</th>
                 <th class="border px-4 py-2 border-gray-700">Description</th>
                 <th class="border px-4 py-2 border-gray-700">Sub Description</th>
+                <th class="border px-4 py-2 border-gray-700">PPC</th>
                 <th class="border px-4 py-2 border-gray-700">Start</th>
                 <th class="border px-4 py-2 border-gray-700">Finish</th>
                 <th class="border px-4 py-2 border-gray-700">Action</th>

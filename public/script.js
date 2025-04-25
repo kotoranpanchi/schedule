@@ -22,8 +22,9 @@ google.charts.load("current", { packages: ["gantt"] });
                 var taskId = "Task" + (i + 1);
                 var taskName = cols[1].textContent;
                 var subDescription = cols[2].textContent;
-                var startDate = new Date(cols[3].textContent);
-                var endDate = new Date(cols[4].textContent);
+                var ppc = cols[3].textContent;
+                var startDate = new Date(cols[4].textContent);
+                var endDate = new Date(cols[5].textContent);
                 var duration = null;
                 var percentComplete = 0;
                 var dependencies = null;
@@ -148,9 +149,11 @@ function addToPreview(rowIndex) {
     if (!row) return;
 
     const taskDescElement = row.children[1].querySelector('input') || row.children[1];
+    const taskDesc = taskDescElement.value || taskDescElement.innerText;
     const subDescElement = row.children[2].querySelector('input') || row.children[2].querySelector('select');
     const subDesc = subDescElement.value.trim();
-    const taskDesc = taskDescElement.value || taskDescElement.innerText;
+    const ppcElement = row.children[3].querySelector('input') || row.children[3];
+    const ppc = ppcElement.value || ppcElement.innerText;
    const startDate = document.getElementById(`start${rowIndex}`).value;
     const finishDate = document.getElementById(`finish${rowIndex}`).value;
     const previewTableBody = document.getElementById('previewTableBody');
@@ -169,6 +172,7 @@ newRow.innerHTML = `
     <td class="border px-4 py-2 border-gray-700">${rowIndex}</td>
     <td class="border px-4 py-2 border-gray-700">${taskDesc}</td>
     <td class="border px-4 py-2 border-gray-700">${subDesc}</td>
+    <td class="border px-4 py-2 border-gray-700">${ppc}</td>
     <td class="border px-4 py-2  border-gray-700 start-date">${startDate || "-"}</td>
     <td class="border px-4 py-2  border-gray-700 finish-date">${finishDate || "-"}</td>
     <td class="border px-4 py-2  border-gray-700">
@@ -194,6 +198,7 @@ function addNewDescription() {
                 <td class="border px-4 py-2 border-gray-700">${rowIndex}</td>
                 <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded b" placeholder="Description"></td>
                 <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded" placeholder="Sub Description"></td>
+                <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded" placeholder="PPC"></td>
                 <td class="border px-4 py-2 border-gray-700" ><input type="date" class="w-full px-3 py-2 border rounded " id="start${rowIndex}"></td>
                 <td class="border px-4 py-2 border-gray-700"><input type="date" class="w-full px-3 py-2 border rounded " id="finish${rowIndex}"></td>
                 <td class="border px-4 py-2 border-gray-700">
