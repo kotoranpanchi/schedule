@@ -1,6 +1,5 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="script.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <body class="flex flex-col items-center justify-center min-h-screen bg-gray-500">
 <div id="page1" class="w-full max-w-4xl p-4 bg-white rounded-lg shadow-md page">
@@ -22,14 +21,106 @@
             <label class="block text-gray-700">Start date:</label>
             <input type="date" id="startDate" class="w-full px-3 py-2 border rounded">
         </div>
-        <div>
-            <label class="block text-gray-700">Target date:</label>
-            <input type="date" id="targetDate" class="w-full px-3 py-2 border rounded">
+
+        <!-- Opsi pilihan metode input Target Date -->
+        <div class="space-y-2">
+            <p class="block text-gray-700 font-semibold">Pilih metode Target Date:</p>
+            <label class="flex space-x-5
+            ">
+                <input type="radio" name="targetOption" value="duration" onchange="toggleTargetInput()" class="mr-2"> Menggunakan Durasi (jumlah hari)
+                <input type="radio" name="targetOption" value="manual" onchange="toggleTargetInput()" class="mr-2"> Input tanggal manual
+            </label>
         </div>
+
+        <!-- Input Durasi Hari -->
+        <div id="durationInput">
+            <label class="block text-gray-700">Durasi (jumlah hari):</label>
+            <input type="number" id="durationDays" class="w-full px-3 py-2 border rounded" placeholder="Masukkan jumlah hari" disabled>
+        </div>
+
+        <!-- Input Target Date -->
+        <div id="targetDateInput">
+            <label class="block text-gray-700">Target date:</label>
+            <input type="date" id="targetDate" class="w-full px-3 py-2 border rounded" readonly>
+        </div>
+
         <div class="flex justify-between">
             <button type="button" class="px-4 py-2 text-white bg-gray-500 rounded" onclick="window.location.href = 'HomePage.html'">Back</button>
             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">Next</button>
         </div>
     </form>
 </div>
+
+<script>
+// Opsi untuk mengaktifkan input sesuai pilihan
+function toggleTargetInput() {
+    const selectedOption = document.querySelector('input[name="targetOption"]:checked');
+    const durationInput = document.getElementById('durationDays');
+    const targetDateInput = document.getElementById('targetDate');
+
+    if (!selectedOption) {
+        // Kalau belum pilih, semua dikunci
+        durationInput.disabled = true;
+        targetDateInput.readOnly = true;
+        return;
+    }
+
+    if (selectedOption.value === "duration") {
+        durationInput.disabled = false;
+        targetDateInput.readOnly = true;
+        updateTargetDate();
+    } else if (selectedOption.value === "manual") {
+        durationInput.disabled = true;
+        targetDateInput.readOnly = false;
+        document.getElementById('targetDate').value = '';
+        targetDateFormatted.value = '';
+    }
+}
+
+// Update Target Date saat isi durasi
+function updateTargetDate() {
+    const startDateValue = document.getElementById('startDate').value;
+    const durationValue = parseInt(document.getElementById('durationDays').value);
+
+    if (startDateValue && durationValue > 0) {
+        const startDate = new Date(startDateValue);
+        startDate.setDate(startDate.getDate() + durationValue);
+        const targetDateFormatted = startDate.toISOString().split('T')[0];
+        document.getElementById('targetDate').value = targetDateFormatted;
+    } else {
+        document.getElementById('targetDate').value = '';
+    }
+}
+
+// Validasi saat user memilih tanggal manual
+function validateManualDate() {
+    const selectedOption = document.querySelector('input[name="targetOption"]:checked');
+    if (selectedOption && selectedOption.value === "manual") {
+        const startDate = new Date(document.getElementById('startDate').value);
+        const targetDate = new Date(document.getElementById('targetDate').value);
+
+        if (startDate && targetDate && targetDate < startDate) {
+            alert("Target Date harus setelah Start Date!");
+            document.getElementById('targetDate').value = '';
+        }
+    }
+}
+
+// Event listener otomatis update
+document.getElementById('durationDays').addEventListener('input', updateTargetDate);
+document.getElementById('startDate').addEventListener('input', function() {
+    const selectedOption = document.querySelector('input[name="targetOption"]:checked');
+    if (selectedOption) {
+        if (selectedOption.value === "duration") {
+            updateTargetDate();
+        } else if (selectedOption.value === "manual") {
+            validateManualDate() && durationInput === "-";
+        }
+    }
+});
+document.getElementById('targetDate').addEventListener('input', validateManualDate);
+
+// Saat load pertama, kunci semua input
+toggleTargetInput();
+</script>
 </body>

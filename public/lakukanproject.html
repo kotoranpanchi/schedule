@@ -9,7 +9,38 @@
     <h3 class="mb-2 text-xl font-semibold">Progres Keseluruhan: <span id="overall-progress">0%</span></h3>
     
     <div id="sections-container">
-        
+        <details>
+            <summary class="text-lg font-semibold">DESIGN(<span id="design-progress">0%</span>)</summary>
+            <div class="progress-section design">
+        <li><input type="checkbox" onclick="updateProgress('design')"> Schedule planning design</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> 3D design actual</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> Cek standar part</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> Cek schedule delivery</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> 2D drawing detail</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> Cek geometri dan toleransi</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> BOM drawing</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> Part list standart part</li>
+        <li><input type="checkbox" onclick="updateProgress('design')"> Part list raw material</li>
+                </ul>
+            </div>
+        </details>
+        <details>
+            <summary class="text-lg font-semibold">PPIC (<span id="ppic-progress">0%</span>)</summary>
+            <div class="progress-section ppic">
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Drawing tahap 1</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Periksa BOM atau list</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsul order std oleh design</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Order dengan purchasing</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi jadwal</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi harga/qty</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Cek barang P.O</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Cek barang drawing</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Simpang penempatan barang</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Serah terima ke assy man</li>
+            <li><input type="checkbox" onclick="updateProgress('ppic')"> Update jadwal ke costumer</li>            
+                </ul>
+            </div>
+        </details>
         <details>
         <summary class="text-lg font-semibold">MANUFAKTUR (<span id="manufaktur-progress">0%</span>)</summary>
         <div class="progress-section manufaktur">
@@ -49,51 +80,40 @@
         </div>
     </details>
     <details>
-        <summary class="text-lg font-semibold">PPIC (<span id="ppic-progress">0%</span>)</summary>
-        <div class="progress-section ppic">
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Dwg tahap 1</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Periksa BOM atau list</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi order mtc</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Periksa BOM atau list</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsul order std oleh design</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Order dengan purchasing</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi jadwal</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Konsolidasi harga/Q</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Cek barang x P.O</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Cek barang x Dwg</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Simpan penempatan barang</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Serah terima ke assy man</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Update jadwal ke customer</li>
-        <li><input type="checkbox" onclick="updateProgress('ppic')"> Ke tim</li>
-            </ul>
-        </div>
-    </details>
-    <details>
         <summary class="text-lg font-semibold">ASSY (<span id="assy-progress">0%</span>)</summary>
         <div class="progress-section assy">
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Kelengkapan Dwg Assy</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Frame</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Main Base</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Jig</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Cek gerakan stroke</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Aligment</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> PWR Wiring</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Internal Wiring</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Cek ijo</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Program manual</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Cek fungsi</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Drawing</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Electric</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Mecanic</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi customer</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> List setup tahap 1</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Jadwal implementasi</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Program Auto</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi cycle time</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi quality</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi safety</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> FAT</li>
-        <li><input type="checkbox" onclick="updateProgress('assy')"> Planing Delivery</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Kelengkapan Drawing Assy</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Frame</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Main Base</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Jig</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Cek gerakan stroke</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Aligment</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Power Wiring</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Internal Wiring</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Cek I/O</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Program manual</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Cek fungsi</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Drawing</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Electric</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Mekanik</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Customer</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> List Setup</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Jadwal Implementasi</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Program Auto</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Cek fungsi auto</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Cycle Time</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Quality</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Evaluasi Safety</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Factory Acceptance Test</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Planning Delivery</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Konfirmasi Customer</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Persiapan Suwaco</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Persiapan Armada Mobil</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Dokumentasi</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Direct Order</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Berita Acara</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Manual Book</li>
+            <li><input type="checkbox" onclick="updateProgress('assy')"> Delivery</li>            
             </ul>
         </div>
     
@@ -101,18 +121,24 @@
     <details>
         <summary class="text-lg font-semibold">INSTALL (<span id="install-progress">0%</span>)</summary>
         <div class="progress-section install">
-        <li><input type="checkbox" onclick="updateProgress('install')"> Unloading dari truck ke lantai</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Posisi layout mesin</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Persiapan ture fork lif</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Persiapan Hand Lifter</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Leveling</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Assembly Ulang</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Wiring Ulang</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Power on</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Cek Fungsi Manual</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Cek 1/0</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Cek fungsi auto</li>
-        <li><input type="checkbox" onclick="updateProgress('install')"> Cek Quality</li>           
+            <li><input type="checkbox" onclick="updateProgress('install')"> Unloading dari truck ke lantai</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> posisi layout mesin</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Persiapan ture fork lift</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Persiapan Hand Lifter</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Leveling</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Assembly Ulang</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Wiring Ulang</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Power on</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Cek Fungsi Manual</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Cek I/O</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Cek fungsi auto</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Cek Quality</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Cek cycle Time</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> cek safety</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> Approval customer</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> training</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> bast</li>
+            <li><input type="checkbox" onclick="updateProgress('install')"> penagihan</li>
             </ul>
         </div>
     </details>

@@ -8,42 +8,86 @@
     <script src="script.js"></script>
     <script>    
     google.charts.load("current", { packages: ["gantt"] });
-        function updateProgressTable() {
-        const tableBody = document.getElementById('progressTableBody');
-        tableBody.innerHTML = '';
-    
-        const tasks = [
-            { description: 'Design', subDescriptions: ['Schedule planning design', '3D design actual', 'Cek standar part', 'Cek schedule delivery', '2D drawing detail', 'Cek geometri dan toleransi', 'BOM drawing', 'Part list standart part', 'Part list raw material', 'Order to purchasing', 'Control subkon/inhouse', 'Fu std part order'] },
-            { description: 'PPIC', subDescriptions: ['Dwg tahap 1', 'Periksa BOM atau list', 'Konsolidasi order mtc', 'Konsul order std oleh design', 'Order dengan purchasing', 'Konsolidasi jadwal', 'Konsolidasi harga/Q', 'Cek barang x P.O', 'Cek barang x DWG', 'Simpang penempatan barang', 'Serah terima ke assy man', 'Update jadwal ke costumer', 'Ke tim'] },
-            { description: 'ASSY', subDescriptions: ['Kelengkapan Dwg Assy', 'Frame', 'Main Base', 'Jig', 'Cek gerakan stroke', 'Aligment', 'PWR Wiring', 'Internal Wiring', 'Cek ijo', 'Program manual', 'Cek fungsi', 'Evaluasi Drawing', 'Evaluasi Electric'] },
-            { description: 'Install', subDescriptions: ['Unloading dari truck ke lantai', 'posisi layout mesin', 'Persiapan ture fork lift', 'Persiapan Hand Lifter', 'Leveling', 'Assembly Ulang', 'Wiring Ulang', 'Power on', 'Cek Fungsi Manual', 'Cek 1/0', 'Cek fungsi auto', 'Cek Quality', 'Cek cycle Time', 'cek safety', 'Approval customer', 'training', 'bast', 'penagihan'] }
-        ];
-    
-        tasks.forEach((task, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td class="border px-4 py-2 border-gray-700">${index + 1}</td>
-                <td class="border px-4 py-2 border-gray-700">${task.description}</td>
-                <td class="border px-4 py-2 border-gray-700">
-                    <select class="w-full px-3 py-2 border rounded" id="subDesc${index + 1}">
+    function updateProgressTable() {
+            const tableBody = document.getElementById('progressTableBody');
+            tableBody.innerHTML = '';
+            const staffList = ['Pak Rusman','Pak Ofik', 'Pak Richi', 'Mas Ramdhan', 'Ali', 'Vanny', 'Ridho', 'Abdul']; 
+            const tasks = [
+                { description: 'Design', subDescriptions: ['Schedule planning design', '3D design actual', 'Cek standar part', 'Cek schedule delivery', '2D drawing detail', 'Cek geometri dan toleransi', 'BOM drawing', 'Part list standart part', 'Part list raw material'] },
+                { description: 'PPIC', subDescriptions: ['Drawing tahap 1', 'Periksa BOM atau list', 'Konsul order std oleh design', 'Order dengan purchasing', 'Konsolidasi jadwal', 'Konsolidasi harga/qty', 'Cek barang P.O', 'Cek barang drawing', 'Simpang penempatan barang', 'Serah terima ke assy man', 'Update jadwal ke costumer'] },
+                { description: 'Manufaktur', subDescriptions: ['Laser', 'Deburing', 'Review – cek', 'Roll', 'Setting', 'Cone', 'Pon', 'Las', 'Pasang track', 'Las pul 1', 'Pasang Cone', 'Ring Plate', 'Las Full', 'Finishing Amplas 100', 'Finishing Amplas 600', 'Spotbread/buffing & trial', 'Eliminasi 1', 'Eliminasi 2', 'Eliminasi 3',' Trial Keseluruhan, Menghapus sisa welding menggunakan bahan kimia','Amplas', 'Perbaikan', 'Finishing','Cleaning', 'Epoksi dasar - pasang karpet', 'Coating 1', 'Coating 2', 'Coating 3', 'Trial setelah Coating'] },               
+                { description: 'ASSY', subDescriptions: ['Kelengkapan Drawing Assy', 'Frame', 'Main Base', 'Jig', 'Cek gerakan stroke', 'Aligment', 'Power Wiring', 'Internal Wiring', 'Cek I/O', 'Program manual', 'Cek fungsi', 'Evaluasi Drawing', 'Evaluasi Electric','Evaluasi Mekanik', 'Evaluasi Customer', 'List Setup', 'Jadwal Implementasi', 'Program Auto', 'Cek fungsi auto', 'Evaluasi Cycle Time', 'Evaluasi Quality', 'Evaluasi Safety', 'Factory Acceptance Test', 'Planning Delivery', 'Konfirmasi Customer', 'Persiapan Suwaco', 'Persiapan Armada Mobil', 'Dokumentasi', 'Direct Order', 'Berita Acara', 'Manual Book', 'Delivery'] },
+                { description: 'Install', subDescriptions: ['Unloading dari truck ke lantai', 'posisi layout mesin', 'Persiapan ture fork lift', 'Persiapan Hand Lifter', 'Leveling', 'Assembly Ulang', 'Wiring Ulang', 'Power on', 'Cek Fungsi Manual', 'Cek I/O', 'Cek fungsi auto', 'Cek Quality', 'Cek cycle Time', 'cek safety', 'Approval customer', 'training', 'bast', 'penagihan'] }
+            ];
+         
+            tasks.forEach((task, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="border px-4 py-2 border-gray-700">${index + 1}</td>
+                    <td class="border px-4 py-2 border-gray-700">${task.description}</td>
+                    <td class="border px-4 py-2 border-gray-700">
+                        <select class="w-full px-3 py-2 border rounded" id="subDesc${index + 1}">
+                        <option value="" disabled selected>Pilih SubDescription</option>
                         ${task.subDescriptions.map(subDesc => `<option>${subDesc}</option>`).join('')}
-                    </select>
-                </td>
-                <td class="border px-4 py-2 border-gray-700">
-                    <input type="text" class="w-full px-3 py-2 border rounded" id="ppc${index + 1}"></td>
-                <td class="border px-4 py-2 border-gray-700">
-                    <input type="date" class="w-full px-3 py-2 border rounded" id="start${index + 1}">
-                </td>
-                <td class="border px-4 py-2 border-gray-700">
-                    <input type="date" class="w-full px-3 py-2 border rounded" id="finish${index + 1}">
-                </td>
-                <td class="border px-4 py-2 border-gray-700">
-                    <button class="px-2 py-1 font-bold border-gray-700 border rounded" onclick="addToPreview(${index + 1})">OK</button>
-                </td>
-            `;
-            tableBody.appendChild(row);
-        });
+                        </select></td>
+                    <td class="border px-4 py-2 border-gray-700">
+                        <select class="w-full px-3 py-2 border rounded" id="PIC${index + 1}">
+                        <option value="" disabled selected>Pilih Staff</option>
+                        ${staffList.map(name => `<option>${name}</option>`).join('')}</select></td>
+                    <td class="border px-4 py-2 border-gray-700">
+                        <input type="date" class="w-full px-3 py-2 border rounded" id="start${index + 1}"></td>
+                    <td class="border px-4 py-2 border-gray-700">
+                        <input type="radio" name="option" value="finish" onchange="toggleInputOption()">
+                        <input type="date" class="w-full px-3 py-2 border rounded" id="finish${index + 1}"></td>
+                    <td class="border px-4 py-2 border-gray-700">
+                        <input type="radio" name="option" value="durat" onchange="toggleInputOption()">
+                        <input type="number" class="w-full px-3 py-2 border rounded" id="dura${index + 1}" min="1"></td>
+                    <td class="border px-4 py-2 border-gray-700">
+                        <button class="px-2 py-1 font-bold border-gray-700 border rounded" onclick="addToPreview(${index + 1})">OK</button></td>
+                `;
+                tableBody.appendChild(row);
+
+            });
+        }
+        
+function toggleInputOption(index) {
+            const option = document.getElementById('input[name="option"]:checked');
+            const duraInput = document.getElementById(`dura${index + 1}`).value;
+            const finishInput = document.getElementById(`finish${index + 1}`).value;
+        
+		    if (!option) {
+        // Kalau belum pilih, semua dikunci
+        duraInput.disabled = true;
+        finishInput.readOnly = true;
+        return;
     }
+
+    if (option.value === "duration") {
+        duraInput.disabled = false;
+        finishInput.readOnly = true;
+        updateFinishDate();
+    } else if (selectedOption.value === "manual") {
+        duraInput.disabled = true;
+        finishInput.readOnly = false;
+        document.getElementById('finish${index + 1}').value = '';
+        finishDateFormatted.value = '';
+    }
+}
+
+function updateFinishDate() {
+    const startValue = document.getElementById('start${index + 1}').value;
+    const duraValue = parseInt(document.getElementById('dura${index + 1}').value);
+
+    if (startValue && duraValue > 0) {
+        const startDate = new Date(startDateValue);
+        startDate.setDate(startDate.getDate() + duraValue);
+        const finishDateFormatted = 'start${index + 1}'.toISOString().split('T')[0];
+        document.getElementById('finish${index + 1}').value = finishDateFormatted;
+    } else {
+        document.getElementById('finish${index + 1}').value = '';
+    }
+}
+
     </script>
 </head>
 <div class="page w-full max-w-full p-4 bg-white shadow-md rounded-lg">
@@ -54,9 +98,10 @@
                 <th class="border px-4 py-2 border-gray-700">No.</th>
                 <th class="border px-4 py-2 border-gray-700">Description</th>
                 <th class="border px-4 py-2 border-gray-700">Sub Description</th>
-                <th class="border px-4 py-2 border-gray-700">PPC</th>
-                <th class="border px-4 py-2 border-gray-700">Start</th>
-                <th class="border px-4 py-2 border-gray-700">Finish</th>
+                <th class="border px-4 py-2 border-gray-700">PIC</th>
+                <th id="start" class="border px-4 py-2 border-gray-700">Start</th>
+                <th id="finish" class="border px-4 py-2 border-gray-700">Finish</th>
+                <th id="dura" class="border px-4 py-2 border-gray-700">Duration</th>
                 <th class="border px-4 py-2 border-gray-700">Action</th>
             </tr>
         </thead>
@@ -75,9 +120,10 @@
                 <th class="border px-4 py-2 border-gray-700">No</th>
                 <th class="border px-4 py-2 border-gray-700">Description</th>
                 <th class="border px-4 py-2 border-gray-700">Sub Description</th>
-                <th class="border px-4 py-2 border-gray-700">PPC</th>
+                <th class="border px-4 py-2 border-gray-700">PIC</th>
                 <th class="border px-4 py-2 border-gray-700">Start</th>
                 <th class="border px-4 py-2 border-gray-700">Finish</th>
+                <th class="border px-4 py-2 border-gray-700">Duration</th>
                 <th class="border px-4 py-2 border-gray-700">Action</th>
             </tr>  
         </thead>
@@ -86,6 +132,11 @@
         </tbody>
     </table>
     <button onclick="drawChart()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Generate Gantt Chart</button>
+    <label for="sortOption">Urutkan Berdasarkan:</label>
+    <select id="sortOption" onchange="drawChart()">
+      <option value="start">Start Date</option>
+      <option value="name">Deskripsi</option>
+    </select>
     <div id="gantt_chart" style="width: 100%; height: 400px;"></div>
     <div class="flex justify-between mt-4">
 

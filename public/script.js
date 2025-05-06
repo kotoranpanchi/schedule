@@ -1,72 +1,93 @@
 google.charts.load("current", { packages: ["gantt"] });
 
-       function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColumn("string", "Task ID");
-            data.addColumn("string", "Task Name");
-            data.addColumn("string", "Resource");
-            data.addColumn("date", "Start Date");
-            data.addColumn("date", "End Date");
-            data.addColumn("number", "Duration");
-            data.addColumn("number", "Percent Complete");
-            data.addColumn("string", "Dependencies");
+function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn("string", "Task ID");
+    data.addColumn("string", "Task Name");
+    data.addColumn("string", "Resource");
+    data.addColumn("date", "Start Date");
+    data.addColumn("date", "End Date");
+    data.addColumn("number", "Duration");
+    data.addColumn("number", "Percent Complete");
+    data.addColumn("string", "Dependencies");
 
-            var tableBody = document.getElementById("previewTableBody");
-            var rows = tableBody.getElementsByTagName("tr");
-            var chartData = [];
-            
-            for (var i = 0; i < rows.length; i++) {
-                var cols = rows[i].getElementsByTagName("td");
-                if (cols.length < 5) continue;
-                
-                var taskId = "Task" + (i + 1);
-                var taskName = cols[1].textContent;
-                var subDescription = cols[2].textContent;
-                var ppc = cols[3].textContent;
-                var startDate = new Date(cols[4].textContent);
-                var endDate = new Date(cols[5].textContent);
-                var duration = null;
-                var percentComplete = 0;
-                var dependencies = null;
-                
-                chartData.push([taskId, taskName, subDescription, startDate, endDate, duration, percentComplete, dependencies]);
-            }
+    var tableBody = document.getElementById("previewTableBody");
+    var rows = tableBody.getElementsByTagName("tr");
+    var chartData = [];
 
-            data.addRows(chartData);
+    for (var i = 0; i < rows.length; i++) {
+        var cols = rows[i].getElementsByTagName("td");
+        if (cols.length < 6) continue;
 
-            var options = {
-                height: 400,
-                gantt: {
-                    trackHeight: 30,
-                    criticalPathEnabled: false,
-                    arrow: {
-                        angle: 100,
-                        width: 2,
-                        color: "black"
-                    },
-                    barLabelStyle: {
-                        fontName: "Arial",
-                        fontSize: 12
-                    },
-                    labelStyle: {
-                        fontSize: 14
-                    },
-                    tooltip: {
-                        isHtml: true,
-                        textStyle: {
-                            fontSize: 12
-                        },
-                        format: "DD/MM"
-                    },
-                    palette: [
-                        { color: "#1E90FF", dark: "#1E90FF", light: "#1E90FF" } // Warna hanya biru
-                    ]
-                }
-            };
+        var taskId = "Task" + (i + 1);
+        var id = cols[0].textContent.trim();
+        var description = cols[1].textContent.trim();
+        var subDescription = cols[2].textContent.trim();
+        var taskName = `${id} ${description} - ${subDescription}`;
+        var pic = cols[3].textContent.trim();
+        var startDate = new Date(cols[4].textContent);
+        var endDate = new Date(cols[5].textContent);
+        var duration = null; // Diabaikan karena kita pakai start & end date
+        var percentComplete = 0;
+        var dependencies = null;
 
-            var chart = new google.visualization.Gantt(document.getElementById("gantt_chart"));
-            chart.draw(data, options);
+        chartData.push([
+            taskId,
+            taskName,
+            pic,
+            startDate,
+            endDate,
+            duration,
+            percentComplete,
+            dependencies
+        ]);
+    }
+
+    // 🔁 Ambil opsi pengurutan (jika ada dropdown)
+    var sortOptionElement = document.getElementById("sortOption");
+    var sortOption = sortOptionElement ? sortOptionElement.value : "start";
+
+    if (sortOption === "start") {
+        chartData.sort((a, b) => a[3] - b[3]); // Sort by Start Date
+    } else if (sortOption === "name") {
+        chartData.sort((a, b) => a[1].localeCompare(b[1])); // Sort by Task Name
+    }
+
+    data.addRows(chartData);
+
+    var options = {
+        height: 400,
+        gantt: {
+            trackHeight: 30,
+            criticalPathEnabled: false,
+            arrow: {
+                angle: 100,
+                width: 2,
+                color: "black"
+            },
+            barLabelStyle: {
+                fontName: "Arial",
+                fontSize: 12
+            },
+            labelStyle: {
+                fontSize: 14
+            },
+            tooltip: {
+                isHtml: true,
+                textStyle: {
+                    fontSize: 12
+                },
+                format: "DD/MM"
+            },
+            palette: [
+                { color: "#1E90FF", dark: "#1E90FF", light: "#1E90FF" }
+            ]
         }
+    };
+
+    var chart = new google.visualization.Gantt(document.getElementById("gantt_chart"));
+    chart.draw(data, options);
+}
 
     function updateProgress(section) {
         let checkboxes = document.querySelectorAll(`.${section} input[type='checkbox']`);
@@ -152,10 +173,11 @@ function addToPreview(rowIndex) {
     const taskDesc = taskDescElement.value || taskDescElement.innerText;
     const subDescElement = row.children[2].querySelector('input') || row.children[2].querySelector('select');
     const subDesc = subDescElement.value.trim();
-    const ppcElement = row.children[3].querySelector('input') || row.children[3];
-    const ppc = ppcElement.value || ppcElement.innerText;
-   const startDate = document.getElementById(`start${rowIndex}`).value;
+    const picElement = row.children[3].querySelector('input') || row.children[3].querySelector('select');
+    const pic = picElement.value || picElement.innerText;
+    const startDate = document.getElementById(`start${rowIndex}`).value;
     const finishDate = document.getElementById(`finish${rowIndex}`).value;
+    const duraDate = document.getElementById(`dura${rowIndex}`).value;
     const previewTableBody = document.getElementById('previewTableBody');
 
     // Cek apakah sub description sudah ada di tabel
@@ -167,14 +189,20 @@ function addToPreview(rowIndex) {
         return;
     }
 
+    if (finishDate < startDate) {
+        alert("Finish Date harus setelah Start Date!");
+        return;
+    }
+
     const newRow = document.createElement('tr');
 newRow.innerHTML = `
     <td class="border px-4 py-2 border-gray-700">${rowIndex}</td>
     <td class="border px-4 py-2 border-gray-700">${taskDesc}</td>
     <td class="border px-4 py-2 border-gray-700">${subDesc}</td>
-    <td class="border px-4 py-2 border-gray-700">${ppc}</td>
+    <td class="border px-4 py-2 border-gray-700">${pic}</td>
     <td class="border px-4 py-2  border-gray-700 start-date">${startDate || "-"}</td>
     <td class="border px-4 py-2  border-gray-700 finish-date">${finishDate || "-"}</td>
+    <td class="border px-4 py-2  border-gray-700 dura-date">${duraDate || "-"}</td>
     <td class="border px-4 py-2  border-gray-700">
         <button class="px-2 py-1 border-gray-700 border rounded" onclick="editPreviewRow(this)">Edit</button>
         <button class="px-2 py-1 border-gray-700 border rounded" onclick="removePreviewRow(this)">Remove</button>
@@ -182,6 +210,11 @@ newRow.innerHTML = `
 `;
 
     previewTableBody.appendChild(newRow);
+    
+    if (  finish < start) {
+        alert("Finish Date harus setelah Start Date!");
+        document.getElementById('finish').value = '';
+    }
 }
 
 
@@ -196,11 +229,12 @@ function addNewDescription() {
 
             newRow.innerHTML = `
                 <td class="border px-4 py-2 border-gray-700">${rowIndex}</td>
-                <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded b" placeholder="Description"></td>
+                <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded" placeholder="Description"></td>
                 <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded" placeholder="Sub Description"></td>
-                <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded" placeholder="PPC"></td>
+                <td class="border px-4 py-2 border-gray-700"><input type="text" class="w-full px-3 py-2 border rounded" placeholder="PIC"></td>
                 <td class="border px-4 py-2 border-gray-700" ><input type="date" class="w-full px-3 py-2 border rounded " id="start${rowIndex}"></td>
                 <td class="border px-4 py-2 border-gray-700"><input type="date" class="w-full px-3 py-2 border rounded " id="finish${rowIndex}"></td>
+                <td class="border px-4 py-2 border-gray-700" ><input type="number" class="w-full px-3 py-2 border rounded " id="dura${rowIndex}"></td>
                 <td class="border px-4 py-2 border-gray-700">
                     <button class="px-2 py-1 font-bold border rounded border-gray-700" onclick="addToPreview(${rowIndex})">OK</button>
                     <button class="px-2 py-1 font-bold border rounded border-gray-700" onclick="removeRow(this)">Remove</button>
@@ -222,6 +256,7 @@ function addNewDescription() {
         row.querySelector('.start-date').innerHTML = startInput.value || "-";
         row.querySelector('.finish-date').innerHTML = finishInput.value || "-";
 
+        
         button.innerText = 'Edit';
     } else {
         // Jika tombol Edit ditekan, ubah teks menjadi input
@@ -270,3 +305,70 @@ function addNewDescription() {
         document.addEventListener('DOMContentLoaded', () => {
             updateProgressTable();
         });
+
+
+        function toggleInputOption(index) {
+            const option = document.getElementById(`inputOption${index}`).value;
+            const durationInput = document.getElementById(`duration${index}`);
+            const finishInput = document.getElementById(`finish${index}`);
+        
+            durationInput.disabled = option !== "duration";
+            finishInput.disabled = option !== "date";
+        
+            durationInput.value = "";
+            finishInput.value = "";
+        }
+        
+        function calculateFinishDate(index) {
+            const startDate = document.getElementById(`start${index}`).value;
+            const duration = parseInt(document.getElementById(`duration${index}`).value);
+        
+            if (!startDate || isNaN(duration) || duration < 0) return;
+        
+            const finishDate = addWorkDays(new Date(startDate), duration);
+            document.getElementById(`finish${index}`).value = formatDate(finishDate);
+        }
+        
+        function addWorkDays(start, days) {
+            let date = new Date(start);
+            let count = 0;
+        
+            while (count < days) {
+                date.setDate(date.getDate() + 1);
+                const day = date.getDay();
+                if (day !== 0 && day !== 6) count++; // Skip Sunday (0) and Saturday (6)
+            }
+        
+            return date;
+        }
+        
+        function validateFinishDate(index) {
+            const startDate = new Date(document.getElementById(`start${index}`).value);
+            const finishDate = new Date(document.getElementById(`finish${index}`).value);
+        
+            if (finishDate < startDate) {
+                alert("Tanggal selesai harus setelah tanggal mulai!");
+                document.getElementById(`finish${index}`).value = "";
+            }
+        }
+        
+        function formatDate(date) {
+            const d = String(date.getDate()).padStart(2, '0');
+            const m = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-based
+            const y = date.getFullYear();
+            return `${y}-${m}-${d}`; // format untuk input[type="date"]
+        }
+    
+        document.querySelectorAll('#checklist input[type="checkbox"]').forEach(checkbox => {
+            const id = checkbox.dataset.id;
+            
+            // Load status on page load
+            const saved = localStorage.getItem(id);
+            if (saved === 'true') checkbox.checked = true;
+          
+            // Save status when changed
+            checkbox.addEventListener('change', () => {
+              localStorage.setItem(id, checkbox.checked);
+            });
+          });
+          
